@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 
+    <!-- Icon -->
+    <link rel="icon" type="images" href="images/bus-icon.jpg">
     <!-- Custom Styles -->
     <style>
         .font-raleway {
@@ -32,6 +36,11 @@
 
         }
 
+        .font-roboto {
+            font-family: "Roboto", sans-serif;
+            font-style: normal;
+        }
+
         a {
             text-decoration: none;
         }
@@ -40,8 +49,10 @@
 </head>
 
 <body>
+
     <!-- Header and Navigation Section -->
-    <header class="w-5/6 mx-auto">
+
+    <header id="header" class="w-5/6 mx-auto">
         <div class="w-full font-raleway flex justify-between pt-12">
             <h1 class="text-4xl font-extrabold">P-Ticket</h1>
             <div class="text-lg text-[#030712B3] font-medium pt-3">
@@ -59,11 +70,12 @@
             </div>
         </div>
     </header>
-    <main>
+    <main id="main">
 
         <!-- Banner Section -->
 
-        <section class="text-center my-8 font-raleway bg-[url('images/banner.png')] bg-no-repeat bg-cover bg-center rounded-[32px] w-5/6 mx-auto">
+        <section
+            class="text-center my-8 font-raleway bg-[url('images/banner.png')] bg-no-repeat bg-cover bg-center rounded-[32px] w-5/6 mx-auto">
             <div
                 class=" bg-gradient-to-b from-[#03071280] flex flex-col items-center gap-y-12 rounded-[32px] h-[550px]">
                 <div class="text-white text-6xl font-extrabold w-5/6 mt-20">
@@ -78,8 +90,9 @@
                         </p>
                 </div>
                 <div>
-                    <button class="btn font-raleway bg-[#1DD100] text-[#030712] border-none w-48 h-16 text-xl font-bold">
-                        <a href="#ticket-purchace-container" >Buy Tickets</a>
+                    <button
+                        class="btn font-raleway bg-[#1DD100] text-[#030712] border-none w-48 h-16 text-xl font-bold">
+                        <a href="#ticket-purchace-container">Buy Tickets</a>
                     </button>
                 </div>
                 <div class="flex justify-around w-5/6 ">
@@ -167,7 +180,8 @@
 
         <!-- Ticket Selection Section -->
 
-        <section id="ticket-purchace-container" class="bg-[#F7F8F8] border-[#1DD100] border-t-4 rounded-[100px] w-full ">
+        <section id="ticket-purchace-container"
+            class="bg-[#F7F8F8] border-[#1DD100] border-t-4 rounded-[100px] w-full ">
             <div class="text-center font-raleway flex flex-col items-center">
                 <h1 class="font-bold text-5xl mt-32 mb-6">Pothik Poribahan</h1>
                 <p class="text-[#03071299] font-raleway w-[730px] mb-12">
@@ -277,7 +291,7 @@
 
                                 <div class="flex justify-between w-full">
                                     <div id="sit-container-1" class="grid grid-cols-2 gap-x-4 items-center w-2/5">
-                                    
+
                                         <button onclick="btnClickedId('A1')" class="btn btn-sit" id="A1">A1</button>
                                         <button onclick="btnClickedId('A2')" class="btn btn-sit" id="A2">A2</button>
                                         <button onclick="btnClickedId('B1')" class="btn btn-sit" id="B1">B1</button>
@@ -341,9 +355,11 @@
 
                             <div class="p-4">
 
-                                <div class="flex justify-between items-center font-inter font-medium text-base text-[#030712] my-4 pb-5 border-dashed border-b-2 border-[#03071233]">
+                                <div
+                                    class="flex justify-between items-center font-inter font-medium text-base text-[#030712] my-4 pb-5 border-dashed border-b-2 border-[#03071233]">
                                     <h3 class="pl-2">
-                                        Seat <span id="selected-sit-count" class="bg-[#1DD100] text-white rounded-xl p-1">0</span> 
+                                        Seat <span id="selected-sit-count"
+                                            class="bg-[#1DD100] text-white rounded-xl p-1">0</span>
                                     </h3>
                                     <h3>
                                         Class
@@ -353,27 +369,28 @@
                                     </h3>
 
                                 </div>
-    
-                                <div id="sit-detail" class="min-h-10 ">
-                                   <ul class="font-inter text-base text-[#03071299] flex justify-between pb-4 px-2">
-                                    <li>Sit Number</li>
-                                    <li>Economy</li>
-                                    <li>550</li>
-                                   </ul>
+
+                                <div id="sit-detail-container" class="min-h-10 ">
+                                    <ul id="sit-detail-box"
+                                        class="font-inter text-base text-[#03071299] grid grid-cols-3 justify-items-center text-center w-full gap-y-2 gap-x-24 items-center px-4 pb-4">
+                                    </ul>
                                 </div>
-    
+
                                 <div>
-                                    <div class="font-inter font-medium text-base text-[#030712] flex justify-between border-t-2 border-solid border-[#03071233] px-2 pt-3">
+                                    <div id="total-price-box" class="font-inter font-medium text-base text-[#030712] grid grid-cols-2 gap-y-4 border-t-2 border-solid border-[#03071233] w-full px-2 pt-3">
                                         <h1>Total Price</h1>
-                                        <h1>BDT 000</h1>
+                                        <h1 id="total-price" class="text-right">BDT 000 <br></h1>
                                     </div>
-                                    <div class="mt-4 ">
-                                        <input class="input" type="text" id="cupon-input" placeholder="Have any copupon?">
-                                        <button disabled id="apply-cupon-btn" class="btn ml-3 bg-[#1DD100] text-white text-base ">Apply</button>
+                                    <div id="cupon-box" class="mt-4 ">
+                                        <input class="input" type="text" id="cupon-input"
+                                            placeholder="Have any copupon?">
+                                        <button onclick="applyClicked()" id="apply-cupon-btn"
+                                            class="btn ml-3 bg-[#1DD100] text-white text-base ">Apply</button>
                                     </div>
-                                    <div class="font-inter font-medium text-base text-[#030712] flex justify-between px-2 pt-4">
+                                    <div
+                                        class="font-inter font-medium text-base text-[#030712] flex justify-between px-2 pt-4">
                                         <h2>Grand Total</h2>
-                                        <h2>
+                                        <h2 id="grand-total">
                                             BDT 000
                                         </h2>
                                     </div>
@@ -384,31 +401,41 @@
                         <div>
                             <div class="p-2 my-5 flex flex-col gap-y-3">
                                 <div class="font-inter font-semibold text-base text-[#030712]">
-                                    <h1>Passenger Name*</h1>
-                                    <input type="text" class="input input-bordered w-full p-8 mt-3" placeholder="Enter your name">
+                                    <h1 class=" mt-5 mb-3">Passenger Name*</h1>
+                                    <input id="name-box" type="text" class="input input-bordered w-full p-8"
+                                        placeholder="Enter your name">
                                 </div>
 
                                 <div class="font-inter font-semibold text-base text-030712">
-                                    <h1>Passenger Name*</h1>
-                                    <input type="number" class="input input-bordered w-full p-8 mt-3" placeholder="Enter your number">
+                                    <h1 class=" mt-5 mb-3">Passenger Name*</h1>
+                                    <input id="number-box" type="number" class="input input-bordered w-full p-8"
+                                        placeholder="Enter your number">
                                 </div>
 
                                 <div class="font-inter font-semibold text-base text-030712">
-                                    <h1>Email</h1>
-                                    <input type="email" class="input input-bordered w-full p-8 mt-3" placeholder="Enter your email id">
+                                    <h1 class=" mt-5 mb-3">Email</h1>
+                                    <input type="email" class="input input-bordered w-full p-8"
+                                        placeholder="Enter your email id">
                                 </div>
-                                <button id="next-btn" class="btn bg-[#1DD100] font-raleway h-16 mt-3 font-extrabold text-white text-xl">Next</button>
+                                <button onclick="nextClicked()" id="next-btn"
+                                    class="btn bg-[#1DD100] font-raleway h-16 mt-3 font-extrabold text-white text-xl">
+                                    Next
+                                </button>
                             </div>
                         </div>
 
                         <div class="flex justify-around">
-                            <h2><a class="underline decoration-1 font-inter font-semibold text-base text-[#03071299]" href="#blank">Terms and Conditions</a></h2>
-                            <h2><a class="underline decoration-1 font-inter font-semibold text-base text-[#03071299]" href="#blank">Cancellation Policy</a></h2>
+                            <h2><a class="underline decoration-1 font-inter font-semibold text-base text-[#03071299]"
+                                    href="#blank">Terms and Conditions</a></h2>
+                            <h2><a class="underline decoration-1 font-inter font-semibold text-base text-[#03071299]"
+                                    href="#blank">Cancellation Policy</a></h2>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+
 
         <script src="scripts/utilities.js"></script>
         <script src="scripts/selectSit.js"></script>
@@ -418,6 +445,25 @@
     <footer>
 
     </footer>
+
+
+    <!-- Purchace Success Section -->
+
+    <section id="success" class="bg-[#f2f2f2] hidden">
+        <div class=" flex justify-center items-center h-full ">
+            <div class="bg-white w-1/2 h-3/5 text-center font-raleway font-roboto rounded-3xl py-20 my-36">
+                <img class="mx-auto w-40 pb-6" src="images/Group.svg" alt="Group">
+                <h1 class="font-bold text-[#27AE60] text-5xl pb-4">SUCCESS</h1>
+                <p class="font-medium text-xl text-[#4A4A4A] pb-3">
+                    Thank you for Booking Our Bus Seats. <br> We are working hard to find the best service and deals for you.
+                </p>
+                <p class="font-light text-xl text-[#4A4A4A] pb-4">Shortly you will find a confirmation in your email.</p>
+                <button onClick="history.go(0);" class="btn bg-[#27AE60] w-60 h-16 text-white text-xl font-semibold">Continue</button>
+
+            </div>
+
+        </div>
+    </section>
 </body>
 
 </html>

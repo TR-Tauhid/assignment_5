@@ -1,153 +1,125 @@
-let totalPriceCount = 0;
-
-function setBgGreen(val){
-    const btnId = document.getElementById(val);
-    btnId.classList.add('bg-[#1DD100]');
-}
-
-function calculateSit(val){
-    // Add selected sit count 
-    const selectedSit = document.getElementById('selected-sit-count');
-    let selectedSitCount = parseInt(selectedSit.innerText);
-    if(selectedSitCount <= 4){
-        selectedSitCount = selectedSitCount + 1;
-    }
-    selectedSit.innerText = selectedSitCount;
-
-    // Remove total sit available
-
-    const availableSit = document.getElementById('available-sit');
-    let availableSitVal = parseInt(availableSit.innerText);
-    let sitVal = availableSitVal - 1;
-    availableSit.innerText = sitVal;
-
-    function setBgNormal(val){
-        const btnId = document.getElementById(val);
-        btnId.classList.remove('bg-[#1DD100]');
-    }
-    if(selectedSitCount > 4){
-        alert('Maximum 4 sits are allowed to purchace.');
-        if(selectedSitCount >= 4)
-        {
-            setBgNormal(val);
-            selectedSit.innerText = selectedSitCount - 1;
-            availableSit.innerText = sitVal + 1;
-        }
-    }    
-
-    // Add selected sit detail
-
-    if(selectedSitCount <= 4)
-    {
-        const sitDetail = document.getElementById(val);
-        let sitNum = sitDetail.innerText;
-        let economy = 'Economy';
-        let fare = 550;
-    
-        // Append list to sit detail section
-    
-        const sitDetailBox = document.getElementById('sit-detail-box');
-    
-        const li1 = document.createElement('li');
-        const li2 = document.createElement('li');
-        const li3 = document.createElement('li');
-    
-        li1.innerText = sitNum;
-        li2.innerText = economy;
-        li3.innerText = fare;
-    
-        sitDetailBox.appendChild(li1);
-        sitDetailBox.appendChild(li2);
-        sitDetailBox.appendChild(li3);
-    }
-
-    // Calculate Price
-    if(selectedSitCount <= 4){
-        totalPriceCount =  selectedSitCount * 550;
-
-        const totalPrice = document.getElementById('total-price');
-        const grandTotal = document.getElementById('grand-total');
-
-        totalPrice.innerText = 'BDT  ' + totalPriceCount;
-        grandTotal.innerText = 'BDT  ' + totalPriceCount;
-
-        
-    }   
-}
-
-// Calculate Discount Price
-
-let grandTotalPrice = 0;
-const grandTotal = document.getElementById('grand-total');
+const header = document.getElementById('header');
+const main = document.getElementById('main');
+const btnSit = document.querySelectorAll('.btn-sit');
+const sitDetailContainer = document.getElementById('sit-detail-container');
+const selectedSitCount = document.getElementById('selected-sit-count');
+const totalPriceCount = document.getElementById('total-price');
+const grandPriceCount = document.getElementById('grand-total');
+const availableSitCount = document.getElementById('available-sit');
+const sitDetailBox = document.getElementById('sit-detail-box');
+const cuponInput = document.getElementById('cupon-input');
+const cuponBtn = document.getElementById('cupon-btn');
 const cuponBox = document.getElementById('cupon-box');
-const totalPriceBox = document.getElementById('total-price-box');
+const discountValueBox = document.getElementById('discount-value-box');
+const discountValue = document.getElementById('discount-value');
+const nextBtn = document.getElementById('next-btn');
+const numBox = document.getElementById('number-box');
+const nameBox = document.getElementById('name-box');
+const successBox = document.getElementById('success-box');
+const footerBox = document.getElementById('footer-box');
 
-function applyClicked(){
-    const cuponInput = document.getElementById('cupon-input');
-    cuponCode = cuponInput.value;
+let selectSitArr = [];
+let discountPrice = 0;
+let discount = 0;
+let totalPrice = 0;
 
-    if(cuponCode === 'NEW15'){
-        dicsountPrice = totalPriceCount - (totalPriceCount * (15/100));
-        grandTotal.innerText = dicsountPrice;
-        cuponBox.classList.add('hidden');
-        let diductedPrice = dicsountPrice - totalPriceCount;
+function removeBg(val) {
+    document.getElementById(val).classList.remove('bg-[#1DD100]');
+};
 
-        const discount = document.createElement('h1');
-        const discountVal = document.createElement('h1');
+function addBtnBg(val) {
+    document.getElementById(val).classList.add('bg-[#1DD100]');
+};
 
-        discount.innerText = 'Discounted Price: ';
-        discountVal.innerText = diductedPrice;
+function addSitList(val) {
 
-        totalPriceBox.appendChild(discount);
-        totalPriceBox.appendChild(discountVal).classList.add('text-right');
+    sitNum = val;
+    const h3 = document.createElement('h3');
+    h3.innerText = val + " Economy " + 550;
+    sitDetailContainer.appendChild(h3);
+    h3.classList.add('word-space', 'pl-8');
+};
+
+function removeSitList(val) {
+    let container = sitDetailContainer.querySelectorAll('h3');
+
+    container.forEach(function (element) {
+        if (element.innerText.includes(val)) {
+            sitDetailContainer.removeChild(element);
+        };
+    });
+};
+
+function addSitCount() {
+    selectedSitCount.innerText = parseInt(selectedSitCount.innerText) + 1;
+    availableSitCount.innerText = parseInt(availableSitCount.innerText) - 1;
+};
+
+function minusSitCount() {
+    selectedSitCount.innerText = parseInt(selectedSitCount.innerText) - 1;
+    availableSitCount.innerText = parseInt(availableSitCount.innerText) + 1;
+};
+
+function addPrice() {
+    totalPrice = totalPrice + 550;
+    totalPriceCount.innerText = 'BDT ' + '  ' + totalPrice;
+    grandPriceCount.innerText = 'BDT ' + '   ' + totalPrice;
+};
+
+function minusPrice() {
+    totalPrice = totalPrice - 550;
+    totalPriceCount.innerText = 'BDT ' + '  ' + totalPrice;
+    grandPriceCount.innerText = 'BDT ' + '  ' + totalPrice;
+};
+
+cuponInput.addEventListener('keyup', function () {
+    if (cuponInput.value === 'Couple 20') {
+        cuponBtn.removeAttribute("disabled", "");
+        discount = 0.20;
     }
-    else if(cuponCode === 'Couple 20'){
-        dicsountPrice = totalPriceCount - (totalPriceCount * (20/100));
-        grandTotal.innerText = dicsountPrice;
-        cuponBox.classList.add('hidden');
-        let diductedPrice = dicsountPrice - totalPriceCount;
-        const discount = document.createElement('h1');
-        const discountVal = document.createElement('h1');
-
-        discount.innerText = 'Discounted Price: ';
-        discountVal.innerText = diductedPrice;
-    
-        totalPriceBox.appendChild(discount);
-        totalPriceBox.appendChild(discountVal).classList.add('text-right');
+    else if (cuponInput.value === 'NEW15') {
+        cuponBtn.removeAttribute("disabled", "");
+        discount = 0.15;
     }
-    else{
-        alert('Cupon Code Invalid');
+    else {
+        cuponBtn.setAttribute("disabled", "");
     }
-}
+});
 
-// Next Btn Function
+cuponBtn.addEventListener('click', function applyCupon() {
+    discountPrice = totalPrice - (totalPrice * discount);
+    grandPriceCount.innerText = 'BDT' + '   ' + discountPrice;
+
+    discountValue.innerText = 'BDT' + ' ' + (discountPrice - totalPrice);
+    cuponBox.classList.add('hidden');
+    discountValueBox.classList.remove('hidden');
+    discountValueBox.classList.add('flex');
+});
+
+numBox.addEventListener('keyup', function () {
+    if (nameBox.value && (numBox.value > 1000000000)) {
+        nextBtn.removeAttribute("disabled", "");
+    }
+    else {
+        nextBtn.setAttribute("disabled", "");
+    };
+});
+
+nameBox.addEventListener('keyup', function () {
+    if (nameBox.value && numBox.value > 1000000000) {
+        nextBtn.removeAttribute("disabled", "");
+    }
+    else {
+        nextBtn.setAttribute("disabled", "");
+    };
+});
+
+
 
 function nextClicked(){
-    const numberBox = document.getElementById('number-box');
-    const nameBox = document.getElementById('name-box');
+    successBox.classList.remove('hidden');
+    header.classList.add('hidden');
+    main.classList.add('hidden');
+    footerBox.classList.add('hidden');
 
-    const number = numberBox.value;
-    const name = nameBox.value;
-
-    console.log(name);
-    if(number > 1000000000 & name != null){
-        const main = document.getElementById('main');
-        const header = document.getElementById('header');
-        const success = document.getElementById('success');
-
-        header.classList.add('hidden');
-        main.classList.add('hidden');
-        success.classList.remove('hidden');
-    }
-    else
-    {
-        alert('Please provide a name and valid number')
-    }
-}
-
-function continueClicked(){
-    
-    success.classList.add('hidden');
-    header.classList.remove('hidden');
-    main.classList.remove('hidden');
 }

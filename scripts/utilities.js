@@ -34,10 +34,10 @@ function addBtnBg(val) {
 function addSitList(val) {
 
     sitNum = val;
-    const h3 = document.createElement('h3');
+    const h3 = document.createElement('p');
     h3.innerText = val + " Economy " + 550;
     sitDetailContainer.appendChild(h3);
-    h3.classList.add('word-space', 'pl-8');
+    h3.classList.add('w-full', 'text-justify');
 };
 
 function removeSitList(val) {

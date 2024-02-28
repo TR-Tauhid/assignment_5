@@ -33,11 +33,18 @@ function addBtnBg(val) {
 
 function addSitList(val) {
 
-    sitNum = val;
-    const h3 = document.createElement('p');
-    h3.innerText = val + " Economy " + 550;
-    sitDetailContainer.appendChild(h3);
-    h3.classList.add('w-full', 'text-justify');
+    const tableRow = document.createElement('tr');
+    const sitNum = document.createElement('td');
+    const economy = document.createElement('td');
+    const priceDetail = document.createElement('td');
+    sitNum.innerText = val;
+    economy.innerText = " Economy ";
+    priceDetail.innerText = 550;
+    tableRow.appendChild(sitNum);
+    tableRow.appendChild(economy);
+    tableRow.appendChild(priceDetail);
+    sitDetailContainer.appendChild(tableRow);
+    tableRow.classList.add('flex', 'justify-between', 'px-3');
 };
 
 function removeSitList(val) {

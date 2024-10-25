@@ -7,9 +7,9 @@ const totalPriceCount = document.getElementById('total-price');
 const grandPriceCount = document.getElementById('grand-total');
 const availableSitCount = document.getElementById('available-sit');
 const sitDetailBox = document.getElementById('sit-detail-box');
-const cuponInput = document.getElementById('cupon-input');
-const cuponBtn = document.getElementById('cupon-btn');
-const cuponBox = document.getElementById('cupon-box');
+const couponInput = document.getElementById('coupon-input');
+const couponBtn = document.getElementById('coupon-btn');  
+const couponBox = document.getElementById('coupon-box');
 const discountValueBox = document.getElementById('discount-value-box');
 const discountValue = document.getElementById('discount-value');
 const nextBtn = document.getElementById('next-btn');
@@ -48,7 +48,7 @@ function addSitList(val) {
 };
 
 function removeSitList(val) {
-    let container = sitDetailContainer.querySelectorAll('h3');
+    let container = sitDetailContainer.querySelectorAll('tr');
 
     container.forEach(function (element) {
         if (element.innerText.includes(val)) {
@@ -70,7 +70,7 @@ function minusSitCount() {
 function addPrice() {
     totalPrice = totalPrice + 550;
     totalPriceCount.innerText = 'BDT ' + '  ' + totalPrice;
-    grandPriceCount.innerText = 'BDT ' + '   ' + totalPrice;
+    grandPriceCount.innerText = 'BDT ' + '  ' + totalPrice;
 };
 
 function minusPrice() {
@@ -79,26 +79,27 @@ function minusPrice() {
     grandPriceCount.innerText = 'BDT ' + '  ' + totalPrice;
 };
 
-cuponInput.addEventListener('keyup', function () {
-    if (cuponInput.value === 'Couple 20') {
-        cuponBtn.removeAttribute("disabled", "");
+
+couponInput.addEventListener('keyup', function () {
+    if (couponInput.value === 'Couple 20') {
+        couponBtn.removeAttribute("disabled",  "");
         discount = 0.20;
     }
-    else if (cuponInput.value === 'NEW15') {
-        cuponBtn.removeAttribute("disabled", "");
+    else if (couponInput.value === 'NEW15') {
+        couponBtn.removeAttribute("disabled", "");
         discount = 0.15;
     }
     else {
-        cuponBtn.setAttribute("disabled", "");
+        couponBtn.setAttribute("disabled", "");
     }
 });
 
-cuponBtn.addEventListener('click', function applyCupon() {
+couponBtn.addEventListener('click', function applyCoupon() {
     discountPrice = totalPrice - (totalPrice * discount);
     grandPriceCount.innerText = 'BDT' + '   ' + discountPrice;
 
     discountValue.innerText = 'BDT' + ' ' + (discountPrice - totalPrice);
-    cuponBox.classList.add('hidden');
+    couponBox.classList.add('hidden');
     discountValueBox.classList.remove('hidden');
     discountValueBox.classList.add('flex');
 });
@@ -120,7 +121,6 @@ nameBox.addEventListener('keyup', function () {
         nextBtn.setAttribute("disabled", "");
     };
 });
-
 
 
 function nextClicked(){

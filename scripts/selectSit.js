@@ -1,4 +1,3 @@
-
 btnSit.forEach(function (element) {
     element.addEventListener('click', function (event) {
         let btnClickedId = event.target.innerText;
@@ -12,7 +11,7 @@ btnSit.forEach(function (element) {
                 minusPrice();
             }
             else {
-                alert('Maximum 4 seats are allowed to purchace  !!!');
+                alert('Maximum 4 seats are allowed to purchase  !!!');
             };
         }
         else {

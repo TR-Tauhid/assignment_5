@@ -112,6 +112,7 @@ function validateForm() {
 numBox.addEventListener("keyup", validateForm);
 nameBox.addEventListener("keyup", validateForm);
 
+
 function nextClicked() {
   const form = document.querySelector("form");
 

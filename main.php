@@ -5,9 +5,9 @@ header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
 
 // Enable error logging to a file instead of sending HTML errors in the response
-ini_set('display_errors', 0); // Disable display errors
+ini_set('display_errors', 0); 
 ini_set('log_errors', 1);
-ini_set('error_log', 'php_error_log.txt'); // Set error log file
+ini_set('error_log', 'php_error_log.txt'); 
 
 $host = 'localhost';
 $password = '';
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Save the HTML file
         $fileName = "tickets/ticket_" . time() . ".html";
         if (!file_exists('tickets')) {
-            mkdir('tickets', 0777, true);  // Create the directory if it doesn't exist
+            mkdir('tickets', 0777, true); 
         }
         file_put_contents($fileName, $htmlContent);
 

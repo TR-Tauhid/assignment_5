@@ -94,7 +94,8 @@ couponBtn.addEventListener("click", function applyCoupon() {
   discountPrice = totalPrice * (1 - discount);
   grandPriceCount.innerText = "BDT " + " " + discountPrice.toFixed(2);
 
-  discountValue.innerText = "BDT " + " " + (totalPrice - discountPrice).toFixed(2);
+  discountValue.innerText =
+    "BDT " + " " + (totalPrice - discountPrice).toFixed(2);
   couponBox.classList.add("hidden");
   discountValueBox.classList.remove("hidden");
   discountValueBox.classList.add("flex");
@@ -110,8 +111,6 @@ function validateForm() {
 }
 
 numBox.addEventListener("keyup", validateForm);
-nameBox.addEventListener("keyup", validateForm);
-
 
 function nextClicked() {
   const form = document.querySelector("form");
@@ -135,8 +134,6 @@ function nextClicked() {
       selectSitArr: selectSitArr.join(","),
     };
 
-    
-    console.log(JSON.stringify(passengerData));
     fetch("http://localhost/assignment_5/main.php", {
       method: "POST",
       headers: {
@@ -151,21 +148,32 @@ function nextClicked() {
         return res.json();
       })
       .then((data) => {
-        alert(data.message);
-        if (data.downloadLink) {
+        // Check if there's an error in the response
+        if (data.error) {
+          alert(data.error, "154"); // Show error message if present
+        } else {
+          alert(data.message); // Show success message
+          if (data.downloadLink) {
+            // If a download link is present
+            const link = document.createElement("a");
+            link.href = data.downloadLink;
+            link.download = data.downloadLink; // Set the download attribute
+            document.body.appendChild(link); // Append the link to the body
+            link.click(); // Programmatically click the link to trigger the download
+            document.body.removeChild(link); // Remove the link after triggering
+          }
+          // Hide relevant sections after success
           successBox.classList.remove("hidden");
           header.classList.add("hidden");
           main.classList.add("hidden");
           footerBox.classList.add("hidden");
-          const link = document.createElement("a");
-
-          link.href = data.downloadLink;
-          link.download = data.downloadLink;
-          link.click();
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error("Fetch error:", err);
+        alert(
+          `${err}There was an error processing your request. Please try again. 175`
+        );
+      });
   });
 }
-
-nextClicked(); // Ensure `nextClicked` is called only once to avoid multiple event bindings

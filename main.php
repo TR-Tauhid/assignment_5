@@ -4,23 +4,17 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
 
-// Enable error logging to a file instead of sending HTML errors in the response
-ini_set('display_errors', 0); 
+// Enable error logging
+ini_set('display_errors', 0);
 ini_set('log_errors', 1);
-ini_set('error_log', 'php_error_log.txt'); 
+ini_set('error_log', 'php_error_log.txt');
 
 $host = 'localhost';
+$username = 'root';
 $password = '';
 $database = 'bus_ticket';
-$username = 'root';
-
-// Display PHP errors in JSON format for debugging (remove in production)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 $conn = new mysqli($host, $username, $password, $database);
-
 if ($conn->connect_error) {
     echo json_encode(["error" => "Connection failed: " . $conn->connect_error]);
     exit;
@@ -65,11 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <link rel='icon' type='image/png' href='https://i.ibb.co/7VN1b9n/th.jpg' />
             <title>Bus Ticket</title>
             <style>
-                body { 
-                    font-family: Arial, sans-serif;
-                    text-align: center; 
-                    margin: auto;
-                }
+                body { font-family: Arial, sans-serif; text-align: center; margin: auto; }
                 h1 { color: #1DD100; }
                 p { font-size: 16px; }
             </style>
@@ -85,17 +75,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </body>
         </html>";
 
+        
+        // Email content
+        $to = $email;
+        $subject = "Bus Ticket Information";
+        $headers = "From: tauhidt994@gmail.com\r\n";
+        $headers .= "Reply-To: tauhidt994@gmail.com\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+        $message = "
+            <p>Dear $name,</p>
+            <p>Please find your bus ticket information below:</p>
+            <p><strong>Name:</strong> $name</p>
+            <p><strong>Email:</strong> $email</p>
+            <p><strong>Number:</strong> $number</p>
+            <p><strong>Selected Seats:</strong> " . implode(", ", explode(",", $selectSitArr)) . "</p>
+            <p><strong>Journey Date:</strong> $journey_date</p>
+            <p><strong>Total Price:</strong> BDT $totalPrice</p>
+            <p>Thank you for choosing our service!</p>
+        ";
+
+        mail($to, $subject, $message, $headers);
+
         // Save the HTML file
         $fileName = "tickets/ticket_" . time() . ".html";
         if (!file_exists('tickets')) {
-            mkdir('tickets', 0777, true); 
+            mkdir('tickets', 0777, true);
         }
         file_put_contents($fileName, $htmlContent);
 
-        // Return success message with download link
         echo json_encode([
-            "message" => "New record created successfully",
-            "downloadLink" => $fileName
+            "message" => "New record created successfully. Email sent.",
+            "downloadLink" => $fileName,
         ]);
     } else {
         echo json_encode(["error" => "Database Error: " . $stmt->error]);
@@ -106,4 +117,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo json_encode(["error" => "Invalid request method"]);
 }
-?>
